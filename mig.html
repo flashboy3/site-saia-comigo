@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Deixa o site adaptado para celular -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quer sair comigo?</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: linear-gradient(135deg, #f6a9d0, #e88bc2);
+
+            font-family: Arial, sans-serif;
+
+            overflow: hidden;
+        }
+
+        /* Card */
+        .card {
+            width: 90%;
+            max-width: 380px;
+            min-height: 320px;
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 35px 20px;
+
+            text-align: center;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+            position: relative;
+        }
+
+        /* Coração */
+        .coracao {
+            font-size: 55px;
+
+            margin-bottom: 15px;
+
+            animation: bater 1s infinite;
+        }
+
+        @keyframes bater {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        /* Título */
+        h1 {
+            color: #d81b60;
+
+            font-size: 26px;
+
+            margin-bottom: 10px;
+        }
+
+        /* Texto */
+        p {
+            color: #777;
+
+            font-size: 15px;
+
+            margin-bottom: 30px;
+        }
+
+        /* Área dos botões */
+        .botoes {
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 15px;
+
+            position: relative;
+
+            width: 100%;
+        }
+
+        /* Botões */
+        button {
+            border: none;
+
+            padding: 14px 28px;
+
+            border-radius: 30px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            touch-action: manipulation;
+        }
+
+        /* Botão SIM */
+        #sim {
+            background: #e91e63;
+
+            color: white;
+        }
+
+        #sim:hover {
+            transform: scale(1.08);
+
+            background: #c2185b;
+        }
+
+        /* Botão NÃO */
+        #nao {
+            background-color: #c2185b;
+
+            color: #ffffff;
+
+            position: relative;
+        }
+
+        /* Mensagem depois de clicar SIM */
+        .mensagem {
+            display: none;
+
+            margin-top: 25px;
+
+            color: #e91e63;
+
+            font-size: 20px;
+
+            font-weight: bold;
+        }
+
+        /* Corações decorativos */
+        .decoracao {
+            position: fixed;
+
+            font-size: 22px;
+
+            pointer-events: none;
+
+            animation: flutuar 4s infinite ease-in-out;
+        }
+
+        .c1 {
+            top: 15%;
+            left: 10%;
+        }
+
+        .c2 {
+            top: 70%;
+            right: 10%;
+            animation-delay: 1s;
+        }
+
+        .c3 {
+            bottom: 15%;
+            left: 15%;
+            animation-delay: 2s;
+        }
+
+        @keyframes flutuar {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Ajustes para celulares pequenos */
+        @media (max-width: 480px) {
+
+            .card {
+                width: 90%;
+
+                min-height: 300px;
+
+                padding: 30px 15px;
+            }
+
+            .coracao {
+                font-size: 48px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            button {
+                padding: 13px 24px;
+
+                font-size: 15px;
+            }
+
+            .botoes {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Corações decorativos -->
+    <div class="decoracao c1">💗</div>
+    <div class="decoracao c2">💙</div>
+    <div class="decoracao c3">💕</div>
+
+
+    <!-- CARD -->
+    <div class="card">
+
+        <div class="coracao">
+            💕
+        </div>
+
+        <h1>
+            Quer sair comigo?
+        </h1>
+
+        <p>
+            Pensa direitinho... 🥺
+        </p>
+
+
+        <!-- BOTÕES -->
+        <div class="botoes">
+
+            <button id="sim">
+                Sim! 😍
+            </button>
+
+            <button id="nao">
+                Não
+            </button>
+
+        </div>
+
+
+        <!-- MENSAGEM -->
+        <div class="mensagem" id="mensagem">
+            Eu sabia! 😍❤️
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const botaoNao = document.getElementById("nao");
+
+        const botaoSim = document.getElementById("sim");
+
+        const mensagem = document.getElementById("mensagem");
+
+
+        /*
+        BOTÃO NÃO
+
+        Quando passar o mouse ou tocar no botão,
+        ele vai fugir para outro lugar da tela.
+        */
+
+        botaoNao.addEventListener("mouseover", fugir);
+
+        botaoNao.addEventListener("touchstart", fugir);
+
+
+        function fugir(event) {
+
+            // Evita o clique normal no celular
+            if (event) {
+                event.preventDefault();
+            }
+
+            const largura =
+                window.innerWidth - botaoNao.offsetWidth - 20;
+
+            const altura =
+                window.innerHeight - botaoNao.offsetHeight - 20;
+
+
+            // Gera posição aleatória
+            const x =
+                Math.random() * Math.max(largura, 20);
+
+            const y =
+                Math.random() * Math.max(altura, 20);
+
+
+            // Faz o botão sair da posição original
+            botaoNao.style.position = "fixed";
+
+            botaoNao.style.left = x + "px";
+
+            botaoNao.style.top = y + "px";
+
+            botaoNao.style.transform = "none";
+        }
+
+
+        /*
+        BOTÃO SIM
+
+        Quando clicar, mostra a mensagem.
+        */
+
+        botaoSim.addEventListener("click", function() {
+
+            mensagem.style.display = "block";
+
+            botaoSim.innerHTML = "Aceitou! ❤️";
+
+        });
+
+    </script>
+
+</body>
+</html>
